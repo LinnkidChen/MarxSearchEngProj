@@ -32,6 +32,7 @@ def inputVector():
 
     for word in seg_list:
         new_dict[word] += 1
+
     new_dict = collections.OrderedDict(
         sorted(new_dict.items(), key=lambda t: t[0]))
     print(new_dict)

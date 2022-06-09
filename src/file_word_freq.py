@@ -1,6 +1,9 @@
+from fileinput import filename
 import json
+from pickle import LIST
 from typing import Dict, List, Tuple
 import os
+import collections
 
 
 def get_file_word_freq(path) -> Dict[str, Dict[str, int]]:
@@ -35,6 +38,8 @@ def get_file_word_freq2(path: str) -> Dict[str, Dict[str, int]]:
         for word in bucket:
             if file_dict[file_name].get(word) is None:
                 file_dict[file_name][word] = 0
+        file_dict[file_name] = collections.OrderedDict(
+            sorted(file_dict[file_name].items(), key=lambda t: t[0]))
 
     return file_dict
 
@@ -43,6 +48,9 @@ if __name__ == '__main__':
     indexDir = 'data/index'
     file_word_freq = get_file_word_freq2(
         "data/index/rverIndex.json")
+    for filename in file_word_freq.keys():
+        file_word_freq[filename] = list(file_word_freq[filename].values())
+
     with open(os.path.join(indexDir, 'fileFreq.json'), 'w') as jfd:
         json.dump(file_word_freq, jfd, ensure_ascii=False)
     # print(file_word_freq)
