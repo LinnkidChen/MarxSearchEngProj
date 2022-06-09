@@ -3,11 +3,14 @@
 # 按 Shift+F10 执行或将其替换为您的代码。
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import json
+from unicodedata import name
 import numpy as np
 import jieba
-
+import collections
 
 # 按间距中的绿色按钮以运行脚本。
+
+
 def inputVector():
     words = input()
     seg_list = jieba.lcut_for_search(words)
@@ -22,20 +25,14 @@ def inputVector():
         json_data = json.load(fp)
         vecotor_q = np.zeros(len(json_data))
 
-    mydict = dict()
+    new_dict = json_data
 
-    loc = 0
-    for j in json_data:
-        mydict[j] = loc
-        loc += 1
+    for key in new_dict.keys():
+        new_dict[key] = 0
 
-    # print(mydict)
-    k = 0
-
-    while k < size:
-        if vector_word[k] in json_data:
-            vecotor_q[mydict[vector_word[k]]] += 1
-            k += 1
-        else:
-            k += 1
+    for word in seg_list:
+        new_dict[word] += 1
+    new_dict = collections.OrderedDict(
+        sorted(new_dict.items(), key=lambda t: t[0]))
+    print(new_dict)
     return vecotor_q
