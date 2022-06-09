@@ -21,4 +21,6 @@ if __name__ == '__main__':
     indexDir = '../data/index'
     file_word_freq = get_file_word_freq(
         os.path.join(indexDir, 'rverIndex.json'))
+    with open(os.path.join(indexDir, 'fileFreq.json'), 'w') as jfd:
+        json.dump(file_word_freq, jfd, ensure_ascii=False)
     print(file_word_freq)
