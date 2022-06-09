@@ -3,17 +3,17 @@ from typing import Dict, List, Tuple
 import os
 
 
-def get_file_word_freq(path: str) -> Dict[str, List[Tuple[str, int]]]:
+def get_file_word_freq(path: str) -> Dict[str, Dict[str, int]]:
     file_dict = {}
     with open(path, 'r') as dataset:
-        json_data: object = json.load(dataset)
+        json_data = json.load(dataset)
         for word in json_data:
             word_file_list = json_data[word]
             for file_name in word_file_list:
                 freq_arr = word_file_list[file_name]
                 if file_dict.get(file_name) is None:
-                    file_dict[file_name] = []
-                file_dict[file_name].append((word, len(freq_arr)))
+                    file_dict[file_name] = {}
+                file_dict[file_name][word] = len(freq_arr)
     return file_dict
 
 
