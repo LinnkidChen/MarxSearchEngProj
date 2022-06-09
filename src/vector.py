@@ -1,4 +1,6 @@
-
+import json
+import  numpy as np
+import jieba
 
 words = input()
 seg_list = jieba.cut_for_search(words)
