@@ -1,5 +1,6 @@
 import json
 from typing import Dict, List, Tuple
+import os
 
 
 def get_file_word_freq(path: str) -> Dict[str, List[Tuple[str, int]]]:
@@ -17,5 +18,7 @@ def get_file_word_freq(path: str) -> Dict[str, List[Tuple[str, int]]]:
 
 
 if __name__ == '__main__':
-    file_word_freq = get_file_word_freq('dataset.json')
+    indexDir = '../data/index'
+    file_word_freq = get_file_word_freq(
+        os.path.join(indexDir, 'rverIndex.json'))
     print(file_word_freq)
