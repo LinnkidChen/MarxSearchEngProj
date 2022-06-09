@@ -3,7 +3,7 @@
 # 按 Shift+F10 执行或将其替换为您的代码。
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import json
-import  numpy as np
+import numpy as np
 import jieba
 
 
@@ -19,7 +19,7 @@ for i in seg_list:
 print(vector_word)
 
 
-with open('./rverIndex.json', 'r', encoding='utf8') as fp:
+with open('data/index/rverIndex.json', 'r', encoding='utf8') as fp:
     json_data = json.load(fp)
     vecotor_q = np.zeros(len(json_data))
 
@@ -41,7 +41,3 @@ while k < size:
     else:
         k += 1
 print(vecotor_q)
-
-
-
-
