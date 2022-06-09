@@ -3,7 +3,7 @@ from typing import Dict, List, Tuple
 import os
 
 
-def get_file_word_freq(path: str) -> Dict[str, Dict[str, int]]:
+def get_file_word_freq(path) -> Dict[str, Dict[str, int]]:
     file_dict = {}
     with open(path, 'r') as dataset:
         json_data = json.load(dataset)
@@ -18,9 +18,9 @@ def get_file_word_freq(path: str) -> Dict[str, Dict[str, int]]:
 
 
 if __name__ == '__main__':
-    indexDir = '../data/index'
+    indexDir = 'data/index'
     file_word_freq = get_file_word_freq(
-        os.path.join(indexDir, 'rverIndex.json'))
+        "data/index/rverIndex.json")
     with open(os.path.join(indexDir, 'fileFreq.json'), 'w') as jfd:
         json.dump(file_word_freq, jfd, ensure_ascii=False)
-    print(file_word_freq)
+    # print(file_word_freq)
