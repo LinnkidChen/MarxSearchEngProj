@@ -1,0 +1,37 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-arm64
+blas=2.115=openblas
+blas-devel=3.9.0=15_osxarm64_openblas
+ca-certificates=2022.4.26=hca03da5_0
+certifi=2022.5.18.1=py38hca03da5_0
+jieba=0.42.1=pyhd8ed1ab_0
+joblib=1.1.0=pyhd3eb1b0_0
+libblas=3.9.0=15_osxarm64_openblas
+libcblas=3.9.0=15_osxarm64_openblas
+libcxx=12.0.0=hf6beb65_1
+libffi=3.4.2=hc377ac9_2
+libgfortran=5.0.0=11_2_0_he6877d6_26
+libgfortran5=11.2.0=he6877d6_26
+liblapack=3.9.0=15_osxarm64_openblas
+liblapacke=3.9.0=15_osxarm64_openblas
+libopenblas=0.3.20=openmp_h2209c59_0
+llvm-openmp=14.0.4=hd125106_0
+ncurses=6.3=h1a28f6b_2
+numpy=1.22.3=py38h25ab29e_0
+numpy-base=1.22.3=py38h974a1f5_0
+openblas=0.3.20=openmp_h745f6c2_0
+openssl=1.1.1o=h1a28f6b_0
+pip=21.2.4=py38hca03da5_0
+python=3.8.13=hbdb9e5c_0
+readline=8.1.2=h1a28f6b_1
+scikit-learn=1.0.2=py38h9197a36_1
+scipy=1.7.3=py38h2f0f56f_0
+setuptools=61.2.0=py38hca03da5_0
+sqlite=3.38.3=h1058600_0
+threadpoolctl=2.2.0=pyh0d69192_0
+tk=8.6.12=hb8d0fd4_0
+wheel=0.37.1=pyhd3eb1b0_0
+xz=5.2.5=h1a28f6b_1
+yapf=0.31.0=pyhd3eb1b0_0
+zlib=1.2.12=h5a0b063_2
