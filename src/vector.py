@@ -6,6 +6,7 @@ import json
 from unicodedata import name
 import numpy as np
 import jieba
+import os
 import collections
 
 # 按间距中的绿色按钮以运行脚本。
@@ -14,14 +15,10 @@ import collections
 def inputVector():
     words = input()
     seg_list = jieba.lcut_for_search(words)
-    size = 0
-    vector_word = list()
-    for i in seg_list:
-        size += 1
-        vector_word.append(i)
-    print(vector_word)
-
-    with open('data/index/rverIndex.json', 'r', encoding='utf8') as fp:
+    words_not_in_dic = set()
+    # print(vector_word)
+    # print(os.getcwd())
+    with open('./data/index/rverIndex.json', 'r', encoding='utf8') as fp:
         json_data = json.load(fp)
         vecotor_q = np.zeros(len(json_data))
 
@@ -31,9 +28,20 @@ def inputVector():
         new_dict[key] = 0
 
     for word in seg_list:
-        new_dict[word] += 1
+        try:
+            new_dict[word] += 1
+        except:
+            words_not_in_dic.add(word)
 
     new_dict = collections.OrderedDict(
         sorted(new_dict.items(), key=lambda t: t[0]))
-    print(new_dict)
-    return vecotor_q
+    # print(new_dict)
+    return new_dict
+
+
+if __name__ == '__main__':
+    inputvec = inputVector()
+    print(inputvec)
+    path = './data/index/fileFreq.json'
+    with open(path, 'r') as dataset:
+        filevec = json.load(dataset)
