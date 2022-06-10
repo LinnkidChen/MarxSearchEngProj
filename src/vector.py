@@ -8,11 +8,13 @@ import numpy as np
 import jieba
 import os
 import collections
-
+import logging
 # 按间距中的绿色按钮以运行脚本。
 
 
 def inputVector():
+    print('input:')
+    jieba.setLogLevel(logging.INFO)
     words = input()
     seg_list = jieba.lcut_for_search(words)
     words_not_in_dic = set()
