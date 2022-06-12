@@ -11,16 +11,25 @@ import collections
 import logging
 # 按间距中的绿色按钮以运行脚本。
 
+word_in = list()
 
 def inputVector():
     print('input:')
+
+    global word_in
     jieba.setLogLevel(logging.INFO)
     words = input()
+    if words == 'quit':
+        return
+
+    word_in.clear()
     seg_list = jieba.lcut_for_search(words)
+    for i in seg_list:
+        word_in.append(i)
     words_not_in_dic = set()
     # print(vector_word)
     # print(os.getcwd())
-    with open('./data/index/rverIndex.json', 'r', encoding='utf8') as fp:
+    with open('/MarxSearchEngProj/data/index/rverIndex.json', 'r', encoding='utf8') as fp:
         json_data = json.load(fp)
         vecotor_q = np.zeros(len(json_data))
 
@@ -42,8 +51,17 @@ def inputVector():
 
 
 if __name__ == '__main__':
-    inputvec = inputVector()
-    print(inputvec)
-    path = './data/index/fileFreq.json'
-    with open(path, 'r') as dataset:
-        filevec = json.load(dataset)
+
+# 输入quit退出循环
+    while True:
+        inputvec = inputVector()
+        if inputvec is None:
+            break
+        print(inputvec)
+        path = '/MarxSearchEngProj/data/index/fileFreq.json'
+        with open(path, 'r', encoding='utf8') as dataset:
+            filevec = json.load(dataset)
+        # print(filevec['../data/docs/马克思/马克思-工人联合会.txt'])
+
+
+
