@@ -29,8 +29,10 @@ if __name__ == '__main__':
         inputvec = list(inputvec.values())
         inputvec = np.array(inputvec).reshape(-1, 1)
         # print(inputvec)
+
         with open("/MarxSearchEngProj/data/index/fileFreqAddr.json", 'r') as fd:
             fileFreqArr = np.array(json.load(fd))
+        # print(len(fileFreqArr))
         fileFreqArr_norm = norm_l2(fileFreqArr)
         inputvec_norm = norm_l2(inputvec)
         relVec = fileFreqArr.dot(inputvec)
@@ -39,14 +41,13 @@ if __name__ == '__main__':
         np_relVec_norm = np_relVec_norm2.flatten()
         # print(np_relVec_norm)
         max_indexs = heapq.nlargest(5, range(len(np_relVec_norm)), np_relVec_norm.take)
-        print(max_indexs)
         with open("/MarxSearchEngProj/data/index/fileList.json", 'r', encoding='utf8') as fd1:
             fileList = np.array(json.load(fd1))
 
         with open("/MarxSearchEngProj/data/index/rverIndex.json", 'r', encoding='utf8') as fd2:
             rverIndex = json.load(fd2)
         for i in max_indexs:
-            print("相关度: ",np_relVec_norm[i],fileList[i], end=' ')
+            print("文章序号: ",i,"相关度: ",np_relVec_norm[i],fileList[i])
             path = str(fileList[i]).split(':')[5].replace('}','').replace('\'','').replace(' ','')
             # print(path)
             # print(rverIndex['马克思'][path])
@@ -55,7 +56,24 @@ if __name__ == '__main__':
                 if path in rverIndex[word]:
                     print(word,end='、')
             print()
-        print(word_in)
+        print("请输入你认为有用的文章序号：",end='')
+        nums = input().split(' ')
+        index = 0
+        mydict = dict()
+        for j in rverIndex:
+            mydict[j] = index
+            index += 1
+        # print(mydict)
+        for num in nums:
+            for word in word_in:
+                fileFreqArr[int(num)][int(mydict[word])] += 1
+            print("文章序号为",num,"的fileFreqArr更新完成")
+
+        result = fileFreqArr.tolist()
+        # print(result)
+        with open("/MarxSearchEngProj/data/index/fileFreqAddr.json", "w") as fd3:
+            json.dump(result, fd3)
+        # print(word_in)
 
 
 
