@@ -5,9 +5,14 @@ import json
 from file_word_freq import get_file_word_freq2
 import numpy as np
 from sklearn.preprocessing import normalize
+import os.path
 
 
 def init():
+    if os.path.isfile('./data/index/fileList.json') and os.path.isfile(
+            './data/index/rverIndex.json') and os.path.isfile('./data/index/fileFreqAddr.json'):
+        return
+
     buildReverseIndex()
 
     # input 共产党理念资本不是本人

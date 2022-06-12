@@ -7,7 +7,9 @@ import logging
 def validIndex(text):
     # for python 3.x
     # sample: ishan('一') == True, ishan('我&&你') == False
-    return all('\u4e00' <= char <= '\u9fff' or u'\u0039' >= char >= u'\u0030' or u'\u005a' >= char >= u'\u0041' for char in text)
+    return all(
+        '\u4e00' <= char <= '\u9fff' or u'\u0039' >= char >= u'\u0030' or u'\u005a' >= char >= u'\u0041' for char in
+        text)
 
 
 def buildReverseIndex():
@@ -26,8 +28,10 @@ def buildReverseIndex():
             tempPath = os.path.join(root, name)
             # print(tempPath)
             if tempPath[-3:] == 'txt':
-                fileList.append(os.path.join(root, name))
-                # print(1)
+                with open(tempPath, 'r') as fd:
+                    fileList.append({'title': fd.readline().rstrip(), 'author': fd.readline().rstrip(),
+                                     'url': fd.readline().rstrip(),
+                                     'path': os.path.join(root, name)})
 
     with open(os.path.join(indexDir, 'fileList.json'), 'w') as fd:
         json.dump(fileList, fd, ensure_ascii=False)
@@ -35,24 +39,20 @@ def buildReverseIndex():
     index_dict = {}
 
     for file in fileList[0:30]:
-        fd = open(file, "r")
+        fd = open(file['path'], "r")
         lineCount = 1
         for line in fd:
             seg_list = jieba.lcut_for_search(line)
             for word in seg_list:
                 if validIndex(word):
-                    try:
-                        index_dict[word]
-                    except:
-                        index_dict[word] = {}
+                    if index_dict.get(word) is None:
+                        index_dict[word] = dict()
 
-                    try:
-                        index_dict[word][file]
-                    except:
-                        index_dict[word][file] = []
+                    if index_dict[word].get(file['path']) is None:
+                        index_dict[word][file['path']] = []
 
-                    index_dict[word][file].append(lineCount)
-            lineCount = lineCount+1
+                    index_dict[word][file['path']].append(lineCount)
+            lineCount = lineCount + 1
 
     with open(os.path.join(indexDir, 'rverIndex.json'), 'w') as jfd:
         json.dump(index_dict, jfd, ensure_ascii=False)

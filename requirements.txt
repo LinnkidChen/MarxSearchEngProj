@@ -35,3 +35,5 @@ wheel=0.37.1=pyhd3eb1b0_0
 xz=5.2.5=h1a28f6b_1
 yapf=0.31.0=pyhd3eb1b0_0
 zlib=1.2.12=h5a0b063_2
+
+jieba~=0.42.1
